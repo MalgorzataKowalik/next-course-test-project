@@ -3,14 +3,6 @@ import MeetupDetails from "../../components/meetups/MeetupDetails";
 import { ObjectId } from 'bson';
 import Head from "next/head";
 
-  // const tempProps = {
-  //   id: 'm1',
-  //   title: 'Meetup in Wroclaw',
-  //   description: 'bla bla',
-  //   address: 'Wrocław',
-  //   image: 'https://images.pexels.com/photos/3790871/pexels-photo-3790871.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-  // }
-
 export default function MeetupDetailsPage(props) {
   return (
     <>
@@ -28,7 +20,6 @@ export default function MeetupDetailsPage(props) {
 }
 
 export async function getStaticProps(context) {
-  //fetch
   const meetupId = context.params.meetupId
   const meetupIdObject = new ObjectId(meetupId)
 
@@ -58,23 +49,11 @@ export async function getStaticPaths() {
   console.log('meetups: ', meetups)
 
   return {
-    // paths: [
-    //   {
-    //     params: {
-    //       meetupId: 'm1'
-    //     }
-    //   },
-    //   {
-    //     params: {
-    //       meetupId: 'm2'
-    //     }
-    //   }
-    // ],
     paths: meetups.map(meetup => ({
       params: {
         meetupId: meetup._id.toString()
       }
     })),
-    fallback: true
+    fallback: 'blocking'
   }
 }
